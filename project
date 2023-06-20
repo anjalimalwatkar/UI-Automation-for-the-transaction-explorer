@@ -1,0 +1,33 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+# Test case 1: Validate the transaction list section heading
+
+# Launch the browser and navigate to the page
+driver = webdriver.Chrome()
+driver.get("https://blockstream.info/block/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732")
+
+# Find the heading element and retrieve its text
+heading_element = driver.find_element(By.XPATH, "//div[@id='transactions']/h3")
+heading_text = heading_element.text
+
+# Validate the heading text
+expected_heading = "25 of 2875 Transactions"
+assert heading_text == expected_heading, f"Expected heading: {expected_heading}, Actual heading: {heading_text}"
+
+# Test case 2: Print transaction hash of transactions with 1 input and 2 outputs
+
+# Find all the transaction rows
+transaction_rows = driver.find_elements(By.XPATH, "//div[@id='transactions']/div[contains(@class, 'transaction-row')]")
+
+# Iterate through the transaction rows and extract the required information
+for row in transaction_rows:
+    input_count = len(row.find_elements(By.XPATH, ".//div[@class='inputs']/div[contains(@class, 'input-row')]"))
+    output_count = len(row.find_elements(By.XPATH, ".//div[@class='outputs']/div[contains(@class, 'output-row')]"))
+    if input_count == 1 and output_count == 2:
+        hash_element = row.find_element(By.XPATH, ".//div[@class='hash']/a")
+        transaction_hash = hash_element.text
+        print(transaction_hash)
+
+# Close the browser
+driver.quit()

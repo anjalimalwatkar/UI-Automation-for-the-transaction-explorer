@@ -1,0 +1,19 @@
+System.setProperty("webdriver.chrome.driver",
+"C:\\My_Java\\ChromeDriver99_Selenium\\chromedriver.exe");
+    WebDriver d = new ChromeDriver();
+    driver.manage().window().maximize();
+    driver.manage().deleteAllCookies();
+   driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);  
+   driver.get("https://blockstream.info/block/000000000000000000076c036ff5119e5a5a74df77abf64203473364509f7732");
+   driver.switchTo().frame(0);
+//Click on 25 of 2875 Transactions below link 
+  driver.findElement(By.xpath("//a[contains(text(),'6587550e410fa1815cf180decc03ef84dcddd19478a081097b')]")).click();
+//Click on INCLUDED IN BLOCk  link 
+  driver.findElement(By.xpath("//a[contains(text(),'000000000000000000076c036ff5119e5a5a74df77abf64203')]")).click();
+// get table info 
+  driver.getTitle("//a[normalize-space()='680000']");
+  driver.getTitle("//div[normalize-space()='In best chain (115167 confirmations)']");
+  driver.getTitle("//div[normalize-space()='2021-04-21 15:28:58 GMT +5.5']");
+  driver.getTitle("//div[normalize-space()='1366.367 KB']");
+  driver.getTitle("//div[normalize-space()='1000 vKB']");
+  driver.getTitle("//div[normalize-space()='3999.551 KWU']");
